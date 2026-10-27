@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ryan Carlos | Suporte de TI e Desenvolvimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14; --panel:#0d1424; --ink:#e6edf7; --muted:#8fa0bb; --line:#1e2b45;
+  --a:#22d3ee; --b:#6366f1; --ok:#34d399; --glow:rgba(34,211,238,.16); --nodes:34,211,238;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace; --sans:"Space Grotesk",system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f3f6fb; --panel:#fff; --ink:#0c1a33; --muted:#4a5b78; --line:#d3dcea;
+  --a:#0369a1; --b:#4f46e5; --ok:#047857; --glow:rgba(3,105,161,.12); --nodes:3,105,161;}}
+:root[data-theme="light"]{--bg:#f3f6fb; --panel:#fff; --ink:#0c1a33; --muted:#4a5b78; --line:#d3dcea; --a:#0369a1; --b:#4f46e5; --ok:#047857; --glow:rgba(3,105,161,.12); --nodes:3,105,161}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+a{color:var(--a)} a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+ linear-gradient(var(--line) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/48px 48px;
+ opacity:.35;mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%)}
+#glow{position:fixed;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 65%);z-index:0;pointer-events:none;left:50%;top:30%}
+#bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:linear-gradient(90deg,var(--a),var(--b));z-index:70}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
+.wrap{position:relative;z-index:1;max-width:66rem;margin:0 auto;padding:0 1.25rem}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.6rem}
+.logo{font:500 .95rem var(--mono);color:var(--ink);text-decoration:none}
+.logo b{color:var(--a)}
+nav{display:flex;gap:1.1rem;font-size:.95rem}
+nav a{color:var(--muted);text-decoration:none;padding:.2rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+nav a:hover,nav a.on{color:var(--ink);border-color:var(--a)}
+@media(max-width:34rem){nav a:nth-child(n+4){display:none}}
+main{position:relative;z-index:1}
+.hero{display:grid;gap:2.5rem;padding:4rem 0 3.5rem;grid-template-columns:1fr;align-items:center}
+@media(min-width:56rem){.hero{grid-template-columns:1.1fr 1fr;padding:5.5rem 0 4.5rem}}
+.pill{display:inline-flex;align-items:center;gap:.55rem;font:500 .82rem var(--mono);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 40%,transparent);padding:.3rem .8rem;border-radius:999px;background:color-mix(in srgb,var(--ok) 8%,transparent)}
+.pill i{width:.55rem;height:.55rem;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}100%{box-shadow:0 0 0 .8rem transparent}}
+h1{font:700 clamp(2.8rem,8vw,5.2rem)/1 var(--sans);letter-spacing:-.04em;margin:1.2rem 0 .8rem;background:linear-gradient(100deg,var(--ink) 40%,var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font:500 clamp(1.05rem,2.4vw,1.35rem) var(--mono);color:var(--a);min-height:2em}
+.role::after{content:"▌";margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{color:var(--muted);max-width:33rem;margin:.6rem 0 1.8rem;font-size:1.12rem}
+.btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn{position:relative;display:inline-block;padding:.75rem 1.25rem;border-radius:8px;font-weight:500;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--panel);transition:transform .2s,border-color .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--a);box-shadow:0 8px 24px -8px var(--a)}
+.btn.main{background:linear-gradient(100deg,var(--a),var(--b));border:0;color:#04101c;font-weight:700}
+/* terminal */
+.term{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.6),0 0 0 1px color-mix(in srgb,var(--a) 10%,transparent)}
+.term .hd{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--line);font:400 .78rem var(--mono);color:var(--muted)}
+.term .hd i{width:.7rem;height:.7rem;border-radius:50%;background:var(--line)}
+.term .hd i:nth-child(1){background:#ff5f57}.term .hd i:nth-child(2){background:#febc2e}.term .hd i:nth-child(3){background:#28c840}
+.term .hd span{margin-left:.6rem}
+.term pre{margin:0;padding:1.1rem 1.2rem 1.3rem;font:400 .88rem/1.75 var(--mono);overflow-x:auto;white-space:pre-wrap}
+.k{color:var(--b)}.s{color:var(--ok)}.c{color:var(--muted)}.p{color:var(--a)}
+:root[data-theme="light"] .k{color:#4338ca}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media(min-width:48rem){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--panel);padding:1.4rem 1.2rem}
+.stat b{display:block;font:700 2.4rem/1 var(--sans);letter-spacing:-.03em;color:var(--ink)}
+.stat span{color:var(--muted);font-size:.92rem}
+section{padding:5rem 0 1rem}
+.tag{font:500 .85rem var(--mono);color:var(--a)}
+h2{font:700 clamp(1.9rem,4.5vw,2.7rem)/1.1 var(--sans);letter-spacing:-.03em;margin:.4rem 0 .6rem}
+.sub{color:var(--muted);max-width:40rem;margin:0 0 2.2rem}
+.cards{display:grid;gap:1.1rem;grid-template-columns:1fr}
+@media(min-width:48rem){.cards{grid-template-columns:repeat(2,1fr)}.card.big{grid-column:1/-1}}
+.card{--mx:50%;--my:50%;position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column;gap:.8rem;overflow:hidden;transition:border-color .25s,transform .15s;transform-style:preserve-3d;will-change:transform}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),var(--glow),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
+.card:hover{border-color:color-mix(in srgb,var(--a) 55%,var(--line))}
+.card:hover::before{opacity:1}
+.card h3{font:700 1.3rem/1.2 var(--sans);margin:0}
+.card.big h3{font-size:1.65rem}
+.card p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto}
+.chips span{font:400 .78rem var(--mono);padding:.2rem .6rem;border-radius:6px;background:color-mix(in srgb,var(--a) 9%,transparent);color:var(--a);border:1px solid color-mix(in srgb,var(--a) 25%,transparent)}
+.live{display:inline-flex;align-items:center;gap:.4rem;font:500 .82rem var(--mono);color:var(--ok)}
+.live::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.go{font-weight:500;text-decoration:none}
+.go:hover{text-decoration:underline}
+.wip{font:400 .82rem var(--mono);color:#f59e0b}
+/* timeline */
+.tl{list-style:none;margin:0;padding:0 0 0 1.6rem;border-left:2px solid var(--line);position:relative}
+.tl li{position:relative;padding:0 0 2rem 1.2rem}
+.tl li::before{content:"";position:absolute;left:-2.18rem;top:.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.tl li.now::before{border-color:var(--a);background:var(--a);box-shadow:0 0 0 5px var(--glow)}
+.tl h3{font:700 1.15rem var(--sans);margin:0}
+.tl .when{font:400 .82rem var(--mono);color:var(--muted)}
+.tl p{margin:.3rem 0 0;color:var(--muted);max-width:42rem}
+/* skills */
+.skills{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:48rem){.skills{grid-template-columns:repeat(3,1fr)}}
+.sk{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.3rem}
+.sk h3{font:700 1.05rem var(--sans);margin:0 0 .8rem}
+.cols{display:grid;gap:1.1rem;grid-template-columns:1fr}
+@media(min-width:48rem){.cols{grid-template-columns:1fr 1fr}}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.4rem}
+.box h3{font:700 1.1rem var(--sans);margin:0 0 .8rem}
+.box ul{margin:0;padding-left:1.1rem;color:var(--muted)}
+.box li{margin-bottom:.45rem}.box li b{color:var(--ink);font-weight:500}
+.cta{text-align:center;background:linear-gradient(160deg,var(--panel),color-mix(in srgb,var(--b) 14%,var(--panel)));border:1px solid var(--line);border-radius:18px;padding:3.2rem 1.5rem}
+.cta .sub{margin:0 auto 1.8rem}.cta .btns{justify-content:center}
+footer{position:relative;z-index:1;text-align:center;color:var(--muted);font:400 .82rem var(--mono);padding:3rem 1rem 3.5rem}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.pill i,.role::after{animation:none}.card{transform:none!important}}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas><div class="grid" aria-hidden="true"></div><div id="glow" aria-hidden="true"></div><div id="bar"></div>
+<header class="top"><div class="wrap bar">
+  <a class="logo" href="#topo">ryan<b>@</b>portfolio:~$</a>
+  <nav aria-label="Seções"><a href="#projetos">Projetos</a><a href="#experiencia">Experiência</a><a href="#skills">Skills</a><a href="#formacao">Formação</a><a href="#contato">Contato</a></nav>
+</div></header>
+
+<main id="topo"><div class="wrap">
+<div class="hero">
+  <div>
+    <span class="pill"><i></i>disponível para estágio e vagas Jr</span>
+    <h1>Ryan Carlos</h1>
+    <div class="role" id="role" aria-label="Suporte de TI, infraestrutura e automação"></div>
+    <p class="lead">Estudante de Ciência da Computação e estagiário de TI. Resolvo problemas de infraestrutura e automatizo o que é repetitivo com Python.</p>
+    <div class="btns">
+      <a class="btn main" href="#projetos">Ver projetos</a>
+      <a class="btn" href="https://www.linkedin.com/in/ryancarlos55/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/dskryan1" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <div class="term" role="img" aria-label="Resumo do perfil em formato de terminal">
+    <div class="hd"><i></i><i></i><i></i><span>ryan@portfolio: ~/perfil</span></div>
+<pre><span class="p">$</span> cat perfil.json
+{
+  <span class="k">"nome"</span>: <span class="s">"Ryan Carlos"</span>,
+  <span class="k">"atuacao"</span>: <span class="s">"Suporte de TI e Infraestrutura"</span>,
+  <span class="k">"graduacao"</span>: <span class="s">"Ciência da Computação (Estácio)"</span>,
+  <span class="k">"tecnico"</span>: <span class="s">"Informática (CENAD)"</span>,
+  <span class="k">"stack"</span>: [<span class="s">"Python"</span>, <span class="s">"Streamlit"</span>, <span class="s">"Power BI"</span>, <span class="s">"SQL"</span>, <span class="s">"Windows"</span>],
+  <span class="k">"ingles"</span>: <span class="s">"técnico avançado"</span>,
+  <span class="k">"local"</span>: <span class="s">"Contagem, MG"</span>
+}
+<span class="p">$</span> <span class="c"># pronto para o próximo desafio</span></pre>
+  </div>
+</div>
+
+<div class="stats rv">
+  <div class="stat"><b data-n="50" data-s="+">0</b><span>computadores com manutenção e diagnóstico</span></div>
+  <div class="stat"><b data-n="2">0</b><span>sistemas no ar, criados para a empresa</span></div>
+  <div class="stat"><b data-n="14">0</b><span>cursos e certificações</span></div>
+  <div class="stat"><b data-n="6">0</b><span>meses de estágio em TI</span></div>
+</div>
+
+<section id="projetos">
+  <div class="rv"><span class="tag">// projetos</span><h2>Soluções para problemas reais de TI</h2>
+  <p class="sub">Automação, infraestrutura e desenvolvimento, quase tudo criado na Office Telco.</p></div>
+  <div class="cards">
+    <article class="card big rv">
+      <span class="live">no ar</span>
+      <h3>Painel de TI Office Telco</h3>
+      <p>Sistema web em Python que coleta as informações completas de hardware das máquinas da empresa e gera uma planilha em Excel com o inventário consolidado, sem digitação manual.</p>
+      <div class="chips"><span>Python</span><span>Streamlit</span><span>Excel</span><span>Inventário</span></div>
+      <a class="go" href="https://office-telco.onrender.com/#ola-ryan" target="_blank" rel="noopener">Abrir o painel →</a>
+    </article>
+    <article class="card rv">
+      <span class="live">no ar</span>
+      <h3>Hydra, projeto do CENAD</h3>
+      <p>Trabalho do curso técnico, parte do projeto em grupo de criação de uma startup de TI: planejamento de infraestrutura, recursos e processos.</p>
+      <div class="chips"><span>Planejamento</span><span>Infraestrutura</span><span>Equipe</span></div>
+      <a class="go" href="https://trabalho-cenad-hydra.onrender.com/" target="_blank" rel="noopener">Abrir o projeto →</a>
+    </article>
+    <article class="card rv">
+      <h3>Implantação em massa do Windows 11</h3>
+      <p>Implantação automatizada compatível com Legacy e UEFI para atualizar vários computadores para o Windows 11, com debloat para liberar recursos e ganhar desempenho.</p>
+      <div class="chips"><span>Windows 11</span><span>Legacy/UEFI</span><span>Debloat</span></div>
+    </article>
+    <article class="card rv">
+      <h3>Organização do ambiente de TI</h3>
+      <p>Manutenção física e diagnóstico de mais de 50 computadores, descarte e reaproveitamento de peças, padronização do cabeamento no CPD e manutenção dos pontos de conectividade.</p>
+      <div class="chips"><span>Hardware</span><span>Cabeamento</span><span>CPD</span></div>
+    </article>
+    <article class="card rv">
+      <span class="wip">em desenvolvimento</span>
+      <h3>Sistema de chamados (Helpdesk)</h3>
+      <p>Gestão de chamados feita do zero para praticar arquitetura de software e fluxo de tickets, com apoio de IA. O progresso sai no GitHub e no LinkedIn.</p>
+      <div class="chips"><span>Arquitetura</span><span>Tickets</span><span>Web</span></div>
+    </article>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="rv"><span class="tag">// experiência</span><h2>Da produção industrial ao suporte de TI</h2><p class="sub">&nbsp;</p></div>
+  <ol class="tl">
+    <li class="now rv"><h3>Estagiário de Suporte Técnico de TI e Infraestrutura, Office Telco</h3><div class="when">2026 · 6 meses</div><p>Suporte aos usuários, manutenção de computadores, organização do CPD e criação de ferramentas de automação.</p></li>
+    <li class="rv"><h3>Vendedor autônomo de doces</h3><div class="when">2025</div></li>
+    <li class="rv"><h3>Design de móveis, SENAI</h3><div class="when">2024</div></li>
+    <li class="rv"><h3>Auxiliar de produção, Especiali Alimentos</h3><div class="when">14 meses</div><p>Atuação operacional.</p></li>
+    <li class="rv"><h3>Trabalhos informais em informática</h3><div class="when">limpeza, manutenção, instalação, otimização e formatação</div></li>
+  </ol>
+</section>
+
+<section id="skills">
+  <div class="rv"><span class="tag">// skills</span><h2>Stack e competências</h2><p class="sub">&nbsp;</p></div>
+  <div class="skills">
+    <div class="sk rv"><h3>Infraestrutura e suporte</h3><div class="chips"><span>Windows 11</span><span>Formatação</span><span>Redes</span><span>IPv4</span><span>Cabeamento</span><span>Diagnóstico</span></div></div>
+    <div class="sk rv"><h3>Desenvolvimento</h3><div class="chips"><span>Python</span><span>Streamlit</span><span>HTML</span><span>CSS</span><span>Lógica</span><span>Git</span></div></div>
+    <div class="sk rv"><h3>Dados e ferramentas</h3><div class="chips"><span>SQL</span><span>Power BI</span><span>Excel</span><span>Pacote Office</span><span>Ciência de dados</span></div></div>
+  </div>
+</section>
+
+<section id="formacao">
+  <div class="rv"><span class="tag">// formação</span><h2>Formação e cursos</h2><p class="sub">&nbsp;</p></div>
+  <div class="cols">
+    <div class="box rv">
+      <h3>Formação</h3>
+      <ul>
+        <li><b>Ciência da Computação</b>, Universidade Estácio. 4º período (2025 a 2029)</li>
+        <li><b>Técnico em Informática</b>, CENAD (2026 a 2028)</li>
+        <li><b>Inglês técnico:</b> avançado em escrita e leitura. <b>Espanhol:</b> básico, leitura</li>
+      </ul>
+      <h3 style="margin-top:1.4rem">Reconhecimentos</h3>
+      <ul>
+        <li>1º lugar no Movimento Ecos (2024), Faculdade Dom Helder</li>
+        <li>3º lugar na Feira de Ciências da E.E. Laurita de Mello, com um foguete artesanal</li>
+      </ul>
+    </div>
+    <div class="box rv">
+      <h3>Cursos e certificações</h3>
+      <ul>
+        <li>Python 3, Mundo 1 (40h), Curso em Vídeo, 2026</li>
+        <li>Algoritmos e Lógica de Programação (40h), 2026</li>
+        <li>Redes de Computadores (40h), 2026</li>
+        <li>Endereçamento IPv4 e Bases Numéricas (20h cada), 2026</li>
+        <li>Fundamentos de Power BI (40h), IFMG, 2026</li>
+        <li>Introdução à Ciência de Dados (6h), Santander Open Academy, 2026</li>
+        <li>Engenharia de Software (100h), FIAP, em andamento</li>
+        <li>Desenvolvimento de Jogos (12h), 1Mio, 2025</li>
+        <li>Informática básica, Office e segurança digital, CNI, 2023 a 2024</li>
+        <li>Outros: 1Mio, Escola do Trabalhador e CDL/BH (2024)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="cta rv">
+    <span class="tag">// contato</span><h2>Vamos conversar?</h2>
+    <p class="sub">Busco estágio ou vagas Jr em suporte técnico, redes ou desenvolvimento.</p>
+    <div class="btns">
+      <a class="btn main" href="mailto:ryancarlos55677@gmail.com">ryancarlos55677@gmail.com</a>
+      <a class="btn" href="https://wa.me/5531994287616" target="_blank" rel="noopener">WhatsApp (31) 99428-7616</a>
+      <a class="btn" href="https://www.linkedin.com/in/ryancarlos55/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/dskryan1" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+</div></main>
+<footer>© 2026 Ryan Carlos · Contagem, MG</footer>
+
+<script>
+(function(){
+var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+// digitação do cargo
+var roles=["Suporte técnico de TI","Infraestrutura e redes","Automação com Python"],el=document.getElementById("role"),ri=0,ci=0,del=false;
+function type(){var t=roles[ri];
+  if(reduce){el.textContent=roles.join(" · ");return}
+  el.textContent=t.slice(0,ci);
+  if(!del&&ci<t.length){ci++;setTimeout(type,70)}
+  else if(!del){del=true;setTimeout(type,1400)}
+  else if(ci>0){ci--;setTimeout(type,35)}
+  else{del=false;ri=(ri+1)%roles.length;setTimeout(type,300)}}
+type();
+// revelar ao rolar
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);
+  var n=e.target.querySelectorAll("[data-n]");n.forEach(count)}})},{threshold:.15});
+document.querySelectorAll(".rv").forEach(function(x){io.observe(x)});
+function count(b){var to=+b.dataset.n,s=b.dataset.s||"",t0=null;
+  if(reduce){b.textContent=to+s;return}
+  function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1200,1);b.textContent=Math.round(to*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)}
+  requestAnimationFrame(f)}
+// barra de progresso e menu ativo
+var bar=document.getElementById("bar"),links=[].slice.call(document.querySelectorAll("nav a")),secs=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+addEventListener("scroll",function(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";
+  var y=h.scrollTop+160;secs.forEach(function(s,i){if(s)links[i].classList.toggle("on",s.offsetTop<=y&&s.offsetTop+s.offsetHeight>y)})},{passive:true});
+// brilho que segue o cursor
+var glow=document.getElementById("glow"),mx=innerWidth/2,my=innerHeight*.3;
+addEventListener("pointermove",function(e){mx=e.clientX;my=e.clientY;glow.style.left=mx+"px";glow.style.top=my+"px"},{passive:true});
+// cartões: spotlight e inclinação
+if(!reduce)document.querySelectorAll(".card").forEach(function(c){
+  c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    c.style.setProperty("--mx",x+"px");c.style.setProperty("--my",y+"px");
+    c.style.transform="perspective(900px) rotateX("+((y/r.height-.5)*-5)+"deg) rotateY("+((x/r.width-.5)*5)+"deg)"});
+  c.addEventListener("pointerleave",function(){c.style.transform=""})});
+// rede de nós (canvas)
+var cv=document.getElementById("net"),cx=cv.getContext("2d"),W,H,pts=[],dpr=Math.min(devicePixelRatio||1,2);
+function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+  var n=Math.min(70,Math.round(W*H/22000));pts=[];for(var i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35})}
+size();addEventListener("resize",size);
+function rgb(){return getComputedStyle(document.documentElement).getPropertyValue("--nodes").trim()||"34,211,238"}
+var col=rgb();matchMedia("(prefers-color-scheme:light)").addEventListener&&matchMedia("(prefers-color-scheme:light)").addEventListener("change",function(){col=rgb()});
+function draw(){cx.clearRect(0,0,W,H);
+  for(var i=0;i<pts.length;i++){var a=pts[i];
+    if(!reduce){a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1}
+    cx.fillStyle="rgba("+col+",.55)";cx.beginPath();cx.arc(a.x,a.y,1.6,0,6.283);cx.fill();
+    for(var j=i+1;j<pts.length;j++){var b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;
+      if(d<19600){cx.strokeStyle="rgba("+col+","+(.22*(1-d/19600))+")";cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}
+    var ddx=a.x-mx,ddy=a.y-my,dd=ddx*ddx+ddy*ddy;
+    if(dd<32400){cx.strokeStyle="rgba("+col+","+(.5*(1-dd/32400))+")";cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(mx,my);cx.stroke()}}
+  if(!reduce)requestAnimationFrame(draw)}
+draw();
+})();
+</script>
+</body>
+</html>
